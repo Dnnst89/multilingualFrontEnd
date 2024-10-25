@@ -3,9 +3,10 @@ import DefaultButton from './DefaultButton';
 
 const WhyChooseUs = async () => {
     let data = await fetch(
-        'http://ec2-54-234-183-21.compute-1.amazonaws.com:1337/api/what-we-dos'
+        'http://ec2-54-234-183-21.compute-1.amazonaws.com:1337/api/what-we-dos',
+        { next: { revalidate: 15 } }
     );
-    let posts = await data.json();
+    let dataList = await data.json();
     return (
         <section className="container mx-auto px-4 py-12">
             <div className="text-center mb-12">
@@ -49,7 +50,7 @@ const WhyChooseUs = async () => {
 
                 <div className="w-full lg:w-1/2">
                     <div className="flex flex-col space-y-4 items-center lg:items-start">
-                        {posts?.data?.map((expert) => (
+                        {dataList?.data?.map((expert) => (
                             <DefaultButton
                                 key={expert.id}
                                 expertsIn={expert.FocusIn}
